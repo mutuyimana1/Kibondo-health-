@@ -30,7 +30,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       enum: ["admin", "doctor", "hospital-admin"],
     },
-    vaccinationStatus: String,
     organization: String,
     isActive: {
       type: Boolean,

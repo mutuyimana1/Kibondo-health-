@@ -11,5 +11,17 @@ commentRoute.post(
   verifyAccess("admin"),
   commentController.createComment
 );
-
+commentRoute.get("/all", commentController.getComment);
+commentRoute.get(
+  "/get/:id",
+  verifyToken,
+  verifyAccess("admin"),
+  commentController.getOneComment
+);
+commentRoute.delete(
+  "/delete/:id",
+  verifyToken,
+  verifyAccess("admin"),
+  commentController.deleteComment
+);
 module.exports = commentRoute;
