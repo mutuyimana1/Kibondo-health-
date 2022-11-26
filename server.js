@@ -1,9 +1,10 @@
-// import express from "express";
 const express = require("express");
 const dbconnect = require("./database/dbconnect");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
-// const { model } = require("mongoose");
+const cookieParser = require("cookie-parser");
+const errorHandler = require("./src/middleWare/error");
+
 const userRoute = require("./src/routers/userRoutes");
 const vaccineRoutes = require("./src/routers/vaccineRoutes");
 const hospitalRoute = require("./src/routers/hospitalRoutes");
@@ -14,18 +15,18 @@ const commentRoute = require("./src/routers/commentRoutes");
 dotenv.config();
 dbconnect();
 const app = express();
+app.use(express.json());
+app.use(cookieParser());
 app.use(morgan("dev"));
 
-app.use(express.json());
 app.use("/user", userRoute);
 app.use("/vaccine", vaccineRoutes);
 app.use("/hospital", hospitalRoute);
 app.use("/measure", measureRoutes);
 app.use("/comment", commentRoute);
 app.use("/auth", authRoute);
-app.get("/", (req, res) => {
-  res.json({ message: "Hello there" });
-});
+
+app.use(errorHandler);
 // running server
 const port = process.env.PORT;
 app.listen(port, () => {
