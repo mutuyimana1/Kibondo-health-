@@ -1,27 +1,11 @@
 const commentController = require("../controllers/commentsController");
 const Router = require("express");
-const verifyToken = require("../middleWare/verifyToken");
-const verifyAccess = require("../middleWare/verifyAccess");
-
+const { authorize, protect } = require("../middleWare/auth");
 const commentRoute = Router();
+// commentRoute.use(protect);
 
-commentRoute.post(
-  "/create",
-  verifyToken,
-  verifyAccess("admin"),
-  commentController.createComment
-);
+commentRoute.post("/create", commentController.createComment);
 commentRoute.get("/all", commentController.getComment);
-commentRoute.get(
-  "/get/:id",
-  verifyToken,
-  verifyAccess("admin"),
-  commentController.getOneComment
-);
-commentRoute.delete(
-  "/delete/:id",
-  verifyToken,
-  verifyAccess("admin"),
-  commentController.deleteComment
-);
+commentRoute.get("/get/:id", commentController.getOneComment);
+commentRoute.delete("/delete/:id", commentController.deleteComment);
 module.exports = commentRoute;

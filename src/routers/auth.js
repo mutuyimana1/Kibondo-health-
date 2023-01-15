@@ -1,6 +1,20 @@
 const router = require("express").Router();
-// const authController = require("../controllers/auth");
+const {
+  createUser,
+  userLogin,
+  logout,
+  updateDetails,
+  updatePassword,
+  resetPassword,
+} = require("../controllers/auth");
+const { protect } = require("../middleware/auth");
 
-// router.post("/login", authController.login);
+router.post("/register", createUser);
+router.post("/login", userLogin);
+router.get("/logout", logout);
+router.put("/updatedetails", protect, updateDetails);
+router.put("/updatepassword", protect, updatePassword);
+
+router.put("/resetpassword/:resettoken", resetPassword);
 
 module.exports = router;

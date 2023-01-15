@@ -1,5 +1,4 @@
 const { default: mongoose } = require("mongoose");
-const mongose = require("mongoose");
 
 const healthMeasureSchema = new mongoose.Schema({
   gender: {
@@ -9,6 +8,7 @@ const healthMeasureSchema = new mongoose.Schema({
   weight: Number,
   height: Number,
   age: Number,
+  telephone: String,
 });
 
 const healthMeasure = mongoose.model("health", healthMeasureSchema);

@@ -53,6 +53,16 @@ class hospitalController {
       data: updatedHospital,
     });
   }
+  static async getHospitalInDistrict(req, res) {
+    const hospital = await hospitalInfos.find({
+      district: req.params.district,
+    });
+    if (hospital.length > 0) {
+      res.status(200).json(hospital);
+    } else {
+      res.status(400).json("no hospital in such district");
+    }
+  }
 }
 
 module.exports = hospitalController;

@@ -1,23 +1,26 @@
 const mongoose = require("mongoose");
 
-const babySchema = new mongoose.Schema({
+const parentsSchema = new mongoose.Schema({
   firstName: String,
   secondName: String,
-  dateOfBirth: {
+  registeredDate: {
     type: Date,
     default: Date.now(),
   },
-  fatherName: String,
-  motherName: String,
+  nationalId: Number,
+  age: Number,
+  hospital: {
+    type: String,
+    default: " ",
+  },
   telephone: String,
   village: String,
   cell: String,
   sector: String,
   district: String,
   province: String,
-  vaccine: Array,
 });
 
-const babies = mongoose.model("baby", babySchema);
+const parents = mongoose.model("parent", parentsSchema);
 
-module.exports = babies;
+module.exports = parents;

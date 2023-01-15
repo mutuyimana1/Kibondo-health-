@@ -1,16 +1,13 @@
-const { Router } = require("express");
+const { Router, application } = require("express");
 const userController = require("../controllers/userController");
+const { protect, authorize } = require("../middleWare/auth");
 
 const userRoute = Router();
+// userRoute.use(protect, authorize("admin"));
 
-// userRoute.post("/register", function (req, res) {
-//   userController.CreateUser;
-// });
-
-userRoute.post("/register", userController.createUser);
 userRoute.get("/all", userController.getAllUsers);
 userRoute.get("/:id", userController.getOneUser);
 userRoute.delete("/delete/:id", userController.deleteUser);
 userRoute.patch("/update/:id", userController.updateUser);
-userRoute.post("/login", userController.userLogin);
+
 module.exports = userRoute;

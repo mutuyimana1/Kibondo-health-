@@ -1,21 +1,26 @@
 const mongoose = require("mongoose");
 
 const hospitalSchema = new mongoose.Schema({
-  hospitalName: {
+  name: {
     type: String,
     required: true,
   },
-  Address: [
-    {
-      district: String,
-      sector: String,
-      Village: String,
-    },
-  ],
-  headOfHospital: {
+
+  district: {
+    type: String,
+    lowercase: true,
+  },
+  sector: String,
+  Village: String,
+
+  director: {
     type: String,
     required: true,
   },
+  cell: String,
+  province: String,
+  sector: String,
+  hotline: String,
 });
 
 const hospital = mongoose.model("Hospital", hospitalSchema);
