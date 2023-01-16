@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const ErrorResponse = require("../helpers/errorResponse");
-const asyncHandler = require("../middleware/async");
-const User = require("../models/User");
+const asyncHandler = require("../middleWare/async");
+const User = require("../models/user");
 
 // Create a user
 exports.createUser = asyncHandler(async (req, res, next) => {
