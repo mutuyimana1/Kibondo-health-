@@ -17,7 +17,7 @@ async function sendSMS() {
       console.log(resp);
     })
     .catch((err) => {
-      console.log("There was an error sending the messages.");
+      console.log("There was an error sending the messages please check.");
       console.error(err);
     });
 }
