@@ -1,12 +1,14 @@
 const getTimer = require("../helpers/timer");
 const babies = require("../models/baby");
 const Nexmo = require("nexmo");
+const dotenv = require("dotenv");
 var cron = require("node-cron");
 const sendSms  = require('../helpers/sendmessage');
+dotenv.config();
 const Vaccinations = require("../models/vaccinations");
 const nexmo = new Nexmo({
-  apiKey: "ac313790",
-  apiSecret: "oq5lnLZx0E8F1D5c",
+  apiKey: process.env.API_KEY,
+  apiSecret: process.env.API_SECRET_KEY,
 });
 
 class babyController {
@@ -19,11 +21,11 @@ class babyController {
     cron.schedule("* * * * * *", () => {
       a = a + 1;
       if (a == 14) {
-        const message = `Muraho ${req.body.fatherName} Kibondo Health irakwibutsako umwana wawe agejeje igihe cyo gufata urukingo rwa 1 rumukingira ibi bikurikira \nBCG \nigituntu,\nimbasa(pilio 0). \n turagusaba ejo kuzindukira kukigonderabuzima kikwegereye ugatabara ubuzima bw'umwana wawe`;
+        const message = `Muraho ${req.body.fatherName} baby Health irakwibutsako umwana wawe agejeje igihe cyo gufata urukingo rwa 1 rumukingira ibi bikurikira \nBCG \nigituntu,\nimbasa(pilio 0). \n turagusaba ejo kuzindukira kukigonderabuzima kikwegereye ugatabara ubuzima bw'umwana wawe`;
         sendSms(number, message);
       }
       if (a == 45) {
-        const message = `Muraho ${req.body.fatherName} Kibondo Health irakwibutsako umwana wawe agejeje igihe cyo gufata rwa 2 urukingo rumukingira ibi bikurikira \nimbasa(pilio1),\npantavelent(),\nimpiswi,\npinemocoque, \n turagusaba ejo kuzindukira kukigonderabuzima kikwegereye ugatabara ubuzima bw'umwana wawe`;
+        const message = `Muraho ${req.body.fatherName} baby Health irakwibutsako umwana wawe agejeje igihe cyo gufata rwa 2 urukingo rumukingira ibi bikurikira \nimbasa(pilio1),\npantavelent(),\nimpiswi,\npinemocoque, \n turagusaba ejo kuzindukira kukigonderabuzima kikwegereye ugatabara ubuzima bw'umwana wawe`;
         sendSms(number, message);
       }
       if (a == 75) {
@@ -87,13 +89,13 @@ class babyController {
     });
   }
 
-  static async addVaccine(req,res){
+  static async addVaccine(req, res) {
     try {
-      const vaccineInfo =  new Vaccinations({
-        baby:req.params.id,
-        name:req.body.name,
-        details:req.body.details,
-        date: Date.now()
+      const vaccineInfo = new Vaccinations({
+        baby: req.params.id,
+        name: req.body.name,
+        details: req.body.details,
+        date: Date.now(),
       });
 
       await vaccineInfo.save();
@@ -101,46 +103,41 @@ class babyController {
         message: "Vaccine recorded",
         data: vaccineInfo,
       });
-      
     } catch (error) {
       return res.status(500).json({
-        message:error.message
+        message: error.message,
       });
     }
   }
-  static async getVaccine(req,res){
-
+  static async getVaccine(req, res) {
     try {
-      const vaccineInfo =  await Vaccinations.find({baby:req.params.id}).populate('baby');
+      const vaccineInfo = await Vaccinations.find({
+        baby: req.params.id,
+      }).populate("baby");
       return res.status(200).json({
         message: "Vaccine recorded",
         data: vaccineInfo,
       });
-      
     } catch (error) {
       return res.status(500).json({
-        message:error.message
+        message: error.message,
       });
     }
-
   }
 
-  static async getAllVaccine(req,res){
-
+  static async getAllVaccine(req, res) {
     try {
-      const vaccineInfo =  await Vaccinations.find().populate('baby');
+      const vaccineInfo = await Vaccinations.find().populate("baby");
       return res.status(200).json({
         message: "Vaccine recorded",
         data: vaccineInfo,
       });
-      
     } catch (error) {
       return res.status(500).json({
-        message:error.message
+        message: error.message,
       });
     }
   }
-  
 }
 
 module.exports = babyController;

@@ -1,25 +1,16 @@
-const Vonage = require("@vonage/server-sdk");
+// Download the helper library from https://www.twilio.com/docs/node/install
+// Set environment variables for your credentials
+// Read more at http://twil.io/secure
 
-const vonage = new Vonage({
-  apiKey: "ac313790",
-  apiSecret: "oq5lnLZx0E8F1D5c",
-});
+const accountSid = "ACd929f6aef3f12e297a5c171fda45ab1b";
+const authToken = "808d8540f1c6fd82029a9a3b21ffe0a6";
+const twilio = require("twilio")(accountSid, authToken);
 
-const from = "Vonage APIs";
-const to = "250722352959";
-const text = "A text message sent using the Vonage SMS API";
-
-async function sendSMS() {
-  await vonage.sms
-    .send({ to, from, text })
-    .then((resp) => {
-      console.log("Message sent successfully");
-      console.log(resp);
-    })
-    .catch((err) => {
-      console.log("There was an error sending the messages.");
-      console.error(err);
-    });
-}
-
-sendSMS();
+twilio.messages
+  .create({
+    // username: "iradukundaj15@gmail.com",
+    body: "Hello from Twilio",
+    from: "+13205253571",
+    to: "+250735134793",
+  })
+  .then((message) => console.log("message has send"));
