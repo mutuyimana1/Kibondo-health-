@@ -2,6 +2,7 @@ const getTimer = require("../helpers/timer");
 const babies = require("../models/baby");
 const Nexmo = require("nexmo");
 var cron = require("node-cron");
+const sendSms  = require('../helpers/sendmessage');
 const Vaccinations = require("../models/vaccinations");
 const nexmo = new Nexmo({
   apiKey: "ac313790",
@@ -19,11 +20,11 @@ class babyController {
       a = a + 1;
       if (a == 14) {
         const message = `Muraho ${req.body.fatherName} Kibondo Health irakwibutsako umwana wawe agejeje igihe cyo gufata urukingo rwa 1 rumukingira ibi bikurikira \nBCG \nigituntu,\nimbasa(pilio 0). \n turagusaba ejo kuzindukira kukigonderabuzima kikwegereye ugatabara ubuzima bw'umwana wawe`;
-        nexmo.message.sendSms(from, number, message);
+        sendSms(number, message);
       }
       if (a == 45) {
         const message = `Muraho ${req.body.fatherName} Kibondo Health irakwibutsako umwana wawe agejeje igihe cyo gufata rwa 2 urukingo rumukingira ibi bikurikira \nimbasa(pilio1),\npantavelent(),\nimpiswi,\npinemocoque, \n turagusaba ejo kuzindukira kukigonderabuzima kikwegereye ugatabara ubuzima bw'umwana wawe`;
-        nexmo.message.sendSms(from, number, message);
+        sendSms(number, message);
       }
       if (a == 75) {
         console.log("urukingo 3");
